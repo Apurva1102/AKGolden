@@ -27,7 +27,7 @@ class ProductCard extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset('assets/images/cake.png'),
+                      child: Image.network(productModule.fullImagePath,),
                     ),
                   ),
                   Padding(
@@ -220,7 +220,7 @@ class ProductCard extends StatelessWidget {
                       ),
                       SizedBox(height: 2.h,),
                       Padding(
-                        padding: const EdgeInsets.only(right: 120),
+                        padding: const EdgeInsets.only(right: 100),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -259,7 +259,7 @@ class ProductCard extends StatelessWidget {
                               orderCheckoutController.addProductToCart(productModule);
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xffFFF4D0), // Button background color
+                              backgroundColor: const Color(0xffFFF4D0),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(4),
                               ),
@@ -284,19 +284,22 @@ class ProductCard extends StatelessWidget {
         ),
         Positioned(
           top: 30,
-          width: 133,
-          height: 133,
+          width: 130,
+          height: 130,
           child: GestureDetector(
             onTap: () {
               show(context);
             },
             child: ClipOval(
-              child: Image.asset(
-                'assets/images/cake.png',
+              child: Image.network(
+                productModule.fullImagePath,
+                height: 27.h,
                 width: 27.w,
-                height: 27.w,
                 fit: BoxFit.cover,
-              ),
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(Icons.broken_image, size: 150);
+                },
+              )
             ),
           ),
         ),

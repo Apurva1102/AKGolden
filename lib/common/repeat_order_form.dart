@@ -1,4 +1,3 @@
-import 'package:ak_golden_project/controller/bottom_navigation_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +27,6 @@ class RepeatOrder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 3.h),
-                // Date Picker
                 Obx(() {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -64,6 +62,7 @@ class RepeatOrder extends StatelessWidget {
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime(2000),
                                       lastDate: DateTime(2101),
+
                                     );
 
                                     if (pickedDate != null) {
@@ -102,7 +101,6 @@ class RepeatOrder extends StatelessWidget {
                   );
                 }),
                 SizedBox(height: 2.h),
-                // Orders List
                 Obx(() {
                   if (controller.isLoading.value) {
                     return const Center(child: CircularProgressIndicator());
@@ -150,11 +148,17 @@ class RepeatOrder extends StatelessWidget {
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Order No.\n${order.orderNumber ?? 'N/A'}",
-                                        style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.brown,
+                                      Container(
+                                        padding: const EdgeInsets.all(8.0),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.circular(8.0)), //
+                                        child: Text(
+                                          "Order No.\n${order.orderNumber ?? 'N/A'}",
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.brown,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -171,7 +175,7 @@ class RepeatOrder extends StatelessWidget {
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      orderCheckoutController.repeatOrder(order);  // Now using the controller here directly
+                                      orderCheckoutController.repeatOrder(order);
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: isSelected
@@ -182,7 +186,7 @@ class RepeatOrder extends StatelessWidget {
                                           : const Color(0xff7B3F00),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(8),
-                                        side: BorderSide(color: Colors.brown),
+                                        side: const BorderSide(color: Colors.brown),
                                       ),
                                     ),
                                     child: Text(
@@ -254,63 +258,124 @@ class RepeatOrder extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          ...order.products!.asMap().entries.map(
-                                (entry) {
-                              int index = entry.key;
-                              var product = entry.value;
+                          // Per Item products
+                          ...order.products!
+                              .where((product) => product.priceScale == 'Per Item')
+                              .toList()
+                              .asMap()
+                              .entries
+                              .map((entry) {
+                            int index = entry.key;
+                            var product = entry.value;
 
-                              return GestureDetector(
-                                onTap: () {
-                                  selectedIndex.value =
-                                  (selectedIndex.value == index)
-                                      ? null
-                                      : index;
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: selected == index
-                                        ? const Color(0xffF5E1C0)
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6.0, horizontal: 8.0),
-                                  margin:
-                                  const EdgeInsets.symmetric(vertical: 2.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "${product.name} [${product.quantity ?? 0} Piece]",
-                                            style: GoogleFonts.inter(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 13,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      // Price
-                                      Text(
-                                        "₹ ${product.subTotalAmount}",
-                                        style: GoogleFonts.inter(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 13,
-                                          color: const Color(0xff7B3F00),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                            return GestureDetector(
+                              onTap: () {
+                                selectedIndex.value =
+                                (selectedIndex.value == index) ? null : index;
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: selected == index
+                                      ? const Color(0xffF5E1C0)
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
-                              );
-                            },
-                          ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6.0, horizontal: 8.0),
+                                margin: const EdgeInsets.symmetric(vertical: 2.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${product.name} [${product.quantity ?? 0} Piece]",
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // Price
+                                    Text(
+                                      "₹ ${product.subTotalAmount}",
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                        color: const Color(0xff7B3F00),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+
+                          // Per kg products
+                          ...order.products!
+                              .where((product) => product.priceScale == 'Per kg')
+                              .toList()
+                              .asMap()
+                              .entries
+                              .map((entry) {
+                            int index = entry.key;
+                            var product = entry.value;
+
+                            return GestureDetector(
+                              onTap: () {
+                                selectedIndex.value =
+                                (selectedIndex.value == index) ? null : index;
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: selected == index
+                                      ? const Color(0xffF5E1C0)
+                                      : Colors.transparent,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6.0, horizontal: 8.0),
+                                margin: const EdgeInsets.symmetric(vertical: 2.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${product.name} [${product.quantity ?? 0} KG]",
+                                          style: GoogleFonts.inter(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 13,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    // Price
+                                    Text(
+                                      "₹ ${product.subTotalAmount}",
+                                      style: GoogleFonts.inter(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 13,
+                                        color: const Color(0xff7B3F00),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }),
+
                           const Padding(
                             padding: EdgeInsets.symmetric(vertical: 4.0),
                             child: Divider(
@@ -350,5 +415,4 @@ class RepeatOrder extends StatelessWidget {
         );
       },
     );
-  }
-}
+  }}

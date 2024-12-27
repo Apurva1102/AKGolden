@@ -22,17 +22,7 @@ class _BillDetailsState extends State<BillDetails> {
 
     return Scaffold(
         appBar: AppBar(
-          // automaticallyImplyLeading: false,
           backgroundColor: const Color(0xff7B3F00),
-
-          // leading: IconButton(onPressed: (){
-          //   // Get.back();
-          //   // Get.toNamed('/bottom_screen');
-          //   Get.find<PersistentTabController>().jumpToTab(0);
-          //
-          // },
-          //     icon: Icon(Icons.arrow_back)
-          // ),
           title: Column(
             children: [
               Text(
@@ -44,13 +34,11 @@ class _BillDetailsState extends State<BillDetails> {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 40),
-                child: Text(
-                  "Baner Pune",
-                  style: GoogleFonts.alatsi(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400),
-                ),
+                child: Obx(() => Text(
+                  "  ${cafeController.cafeAddress.value}",
+                  style: GoogleFonts.alatsi(fontWeight: FontWeight.w400,color: Colors.white,fontSize: 14.sp),
+                )),
+
               )
             ],
           ),
@@ -140,6 +128,8 @@ class _BillDetailsState extends State<BillDetails> {
             )));
   }
 
+
+
   Widget _buildAddressSection() {
     final CafeController cafeController = Get.find();
 
@@ -178,7 +168,6 @@ class _BillDetailsState extends State<BillDetails> {
 
   Widget _buildItemsSection() {
     final orderCheckoutController = Get.put(OrderCheckoutController());
-    // Get.lazyPut(() => OrderCheckoutController());
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
@@ -199,7 +188,6 @@ class _BillDetailsState extends State<BillDetails> {
           color: Colors.white,
         ),
         child: Obx(() {
-          // Use selectedProducts to filter cart items
           final selectedProducts = orderCheckoutController.selectedProducts;
 
           if (selectedProducts.isEmpty) {
@@ -215,8 +203,6 @@ class _BillDetailsState extends State<BillDetails> {
           return SingleChildScrollView(
             child: Column(
               children: selectedProducts.map((product) {
-                // final order = Get.arguments as Orders;
-                // Determine if the product is out of stock
                 const outOfStock = false;
                 return _buildItemRow(product, outOfStock);
               }).toList(),
@@ -319,106 +305,15 @@ class _BillDetailsState extends State<BillDetails> {
               height: 44,
               child: ElevatedButton(
                 onPressed: () async {
-                  // Check if there are selected products
                   if (orderCheckoutController.selectedProducts.isEmpty) {
-                    // Show an error message if no products are selected
                     Get.snackbar("Error", "Please add products to your cart.",
                         snackPosition: SnackPosition.TOP,
                         backgroundColor: Colors.red,
                         colorText: Colors.white,
-                        duration: Duration(milliseconds: 1000));
+                        duration: const Duration(milliseconds: 1000));
                     return;
                   }
                   await orderCheckoutController.submitOrder();
-                  // orderCheckoutController.showCancelButton.value =
-                  //     false; // Hide Cancel button
-                  // Get.toNamed('/dashboard_screen');
-                  // if (orderCheckoutController.errorMessage.isEmpty) ;
-                  // Show the confirmation dialog
-                  // Get.dialog(
-                  //   Dialog(
-                  //     backgroundColor: Colors.white,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //     child: Padding(
-                  //       padding: const EdgeInsets.all(16.0),
-                  //       child: Container(
-                  //         height: 40.h,
-                  //         color: Colors.white,
-                  //         child: Column(
-                  //           children: [
-                  //             Image.asset('assets/images/deliverybox.png'),
-                  //             SizedBox(height: 15),
-                  //             const Text(
-                  //               "Your Order has been Confirmed !!",
-                  //               style: TextStyle(
-                  //                 color: Colors.green,
-                  //                 fontWeight: FontWeight.w500,
-                  //               ),
-                  //               textAlign: TextAlign.center,
-                  //             ),
-                  //             SizedBox(height: 2.h),
-                  //             Text(
-                  //               "Thank you for your Purchase",
-                  //               style: TextStyle(
-                  //                 color: Colors.brown,
-                  //                 fontWeight: FontWeight.bold,
-                  //                 fontSize: 17.sp,
-                  //               ),
-                  //               textAlign: TextAlign.center,
-                  //             ),
-                  //             SizedBox(height: 2.h),
-                  //             RichText(
-                  //               textAlign: TextAlign.center,
-                  //               text: TextSpan(
-                  //                 text: "Your order number is ",
-                  //                 style: TextStyle(
-                  //                   color: Colors.black,
-                  //                   fontSize: 11,
-                  //                 ),
-                  //                 children: [
-                  //                   TextSpan(
-                  //                     text: "#12345", // Example order number
-                  //                     style: TextStyle(
-                  //                       fontWeight: FontWeight.bold,
-                  //                       fontSize: 11,
-                  //                     ),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ),
-                  //             Text(
-                  //               "You'll get an email confirmation for your order details",
-                  //               textAlign: TextAlign.center,
-                  //               style: TextStyle(fontSize: 11),
-                  //             ),
-                  //             SizedBox(height: 2.h),
-                  //             ElevatedButton(
-                  //               onPressed: () {
-                  //                 Get.offAllNamed('/ordercheckout_screen');
-                  //               },
-                  //               style: ElevatedButton.styleFrom(
-                  //                 backgroundColor: Colors.white,
-                  //                 side: BorderSide(color: Colors.brown),
-                  //                 shape: RoundedRectangleBorder(
-                  //                   borderRadius: BorderRadius.circular(5),
-                  //                 ),
-                  //               ),
-                  //               child: Text(
-                  //                 'Go to Homepage',
-                  //                 style: GoogleFonts.inter(
-                  //                     color: Colors.brown,
-                  //                     fontWeight: FontWeight.w500),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  //   barrierDismissible: true,
-                  // );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xff7B3F00),
@@ -482,51 +377,14 @@ class _BillDetailsState extends State<BillDetails> {
     );
   }
 
-  Widget _buildIconRow({
-    required IconData icon,
-    required String text,
-    required String actionText,
-    bool isBold = false,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            // color: Colors.grey,
-          ),
-          SizedBox(width: 2.w),
-          Expanded(
-            child: Text(
-              text,
-              style: GoogleFonts.inter(
-                color: Colors.grey,
-                fontWeight: isBold ? FontWeight.w400 : FontWeight.normal,
-                // fontSize: 12.sp,
-              ),
-            ),
-          ),
-          Text(
-            actionText,
-            style: GoogleFonts.inter(
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 
   Widget _buildItemRow(AllProductModule product, bool outOfStock) {
     final orderCheckoutController = Get.find<OrderCheckoutController>();
     final productId = product.productId ?? 0;
     final quantity = orderCheckoutController.cartItems[product.productId] ?? 0;
 
-    final priceToDisplay = product.dealPrice != null ? product.dealPrice : product.basePrice;
+    final priceToDisplay = product.dealPrice ?? product.basePrice;
 
-    double displayedPrice = 0.0;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
       child: Column(
@@ -539,7 +397,7 @@ class _BillDetailsState extends State<BillDetails> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      cartAdd(context, product);
+                      // cartAdd(context, product);
                     },
                     child: Row(
                       children: [
@@ -586,7 +444,7 @@ class _BillDetailsState extends State<BillDetails> {
                             fontSize: 14,
                             fontWeight: FontWeight.w300),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(
                         "₹${priceToDisplay ?? 0}",
                         style: GoogleFonts.inter(
@@ -685,10 +543,11 @@ class _BillDetailsState extends State<BillDetails> {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: TextField(
-                            keyboardType: TextInputType.numberWithOptions(decimal: true),
+                            keyboardType: const TextInputType.numberWithOptions(decimal: true),
                             onChanged: (value) {
                               orderCheckoutController.updateWeight(productId, value);
                             },
+                            // controller: TextEditingController(text: orderCheckoutController.getDisplayWeight(productId)),
                             decoration: const InputDecoration(
                               hintText: 'Enter',
                               suffixText: 'KG',
@@ -713,13 +572,13 @@ class _BillDetailsState extends State<BillDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "${orderCheckoutController.getDisplayWeight(productId)} KG",
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                          ),
-                        ),
+                        // Text(
+                        //   "${orderCheckoutController.getDisplayWeight(productId)} KG",
+                        //   style: const TextStyle(
+                        //     color: Colors.grey,
+                        //     fontSize: 12,
+                        //   ),
+                        // ),
                         Text(
                           "₹${orderCheckoutController.getPriceToDisplay(productId).toStringAsFixed(2)}",
                           style: GoogleFonts.alatsi(
@@ -773,10 +632,7 @@ class _BillDetailsState extends State<BillDetails> {
 void cartAdd(BuildContext context, AllProductModule selectedProduct) {
   final OrderCheckoutController orderCheckoutController = Get.find();
 
-  // Calculate the price to display (dealPrice or basePrice)
-  final priceToDisplay = selectedProduct.dealPrice != null
-      ? selectedProduct.dealPrice
-      : selectedProduct.basePrice;
+  final priceToDisplay = selectedProduct.dealPrice ?? selectedProduct.basePrice;
 
   showModalBottomSheet(
     context: context,
@@ -793,7 +649,7 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                 padding: const EdgeInsets.all(20),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/images/cake.png'),
+                  child:  Image.network(selectedProduct.fullImagePath,)
                 ),
               ),
               Padding(
@@ -838,12 +694,7 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                   ],
                 ),
               ),
-              // Continue with the rest of the modal content
-              SizedBox(
-                height: 1.h,
-              ),
               Container(
-                height: 8.h,
                 decoration: const BoxDecoration(
                   color: Color(0xffFBEFE3),
                   borderRadius: BorderRadius.only(
@@ -852,8 +703,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                 ),
                 child: Center(
                   child: SizedBox(
-                    width: 100.w,
-                    height: 5.h,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -865,7 +714,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Quantity Selector
                           Container(
                             height: 4.h,
                             padding: const EdgeInsets.symmetric(
@@ -877,7 +725,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                             ),
                             child: Row(
                               children: [
-                                // Decrease button
                                 IconButton(
                                   icon: const Icon(
                                     Icons.remove,
@@ -898,7 +745,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                                           fontWeight: FontWeight.bold,
                                           color: Colors.brown),
                                     )),
-                                // Increase button
                                 IconButton(
                                   icon: const Icon(
                                     Icons.add,
@@ -918,7 +764,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                           Expanded(
                             child: ElevatedButton(
                               onPressed: () {
-                                // Get.toNamed('/billdetails');
                                 Get.find<PersistentTabController>()
                                     .jumpToTab(3);
                               },
@@ -932,7 +777,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Price
                                   Obx(() => Text(
                                         '₹ ${selectedProduct.basePrice! * (orderCheckoutController.cartItems[selectedProduct.productId] ?? 0)}',
                                         style: const TextStyle(
@@ -940,7 +784,6 @@ void cartAdd(BuildContext context, AllProductModule selectedProduct) {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )),
-                                  // Text and Icon
                                   Row(
                                     children: [
                                       const Text(

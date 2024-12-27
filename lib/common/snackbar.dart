@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void _showGreetSnackbar(BuildContext context) {
@@ -6,7 +5,7 @@ void _showGreetSnackbar(BuildContext context) {
 
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      content: Text(
+      content: const Text(
         'Hello! Welcome',
         style: TextStyle(color: Colors.white, fontSize: 16),
         textAlign: TextAlign.center,
@@ -22,7 +21,7 @@ void _showGreetSnackbar(BuildContext context) {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
     ),
   );
 }

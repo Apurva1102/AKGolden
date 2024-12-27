@@ -10,16 +10,16 @@ import '../screens/profile_screen.dart';
 class BottomNavigationScreens extends StatelessWidget {
   final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
 
-  BottomNavigationScreens({Key? key}) : super(key: key) {
+  BottomNavigationScreens({super.key}) {
     Get.put(_controller);
   }
 
   List<Widget> _buildScreens() {
     return [
       HomeScreen(),
-      DashboardScreen(),
+      const DashboardScreen(),
       OrderHistoryScreen(),
-      BillDetails(),
+      const BillDetails(),
       ProfileScreen(),
     ];
   }
@@ -27,7 +27,7 @@ class BottomNavigationScreens extends StatelessWidget {
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.home),
+        icon: const Icon(Icons.home),
         title: ("Home"),
         activeColorPrimary: Colors.brown,
         inactiveColorPrimary: Colors.grey,
@@ -35,25 +35,25 @@ class BottomNavigationScreens extends StatelessWidget {
         contentPadding: 0,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.message_outlined),
+        icon: const Icon(Icons.message_outlined),
         title: ("New Order"),
         activeColorPrimary: Colors.brown,
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.history),
+        icon: const Icon(Icons.history),
         title: ("History"),
         activeColorPrimary: Colors.brown,
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.shopping_cart_outlined),
+        icon: const Icon(Icons.shopping_cart_outlined),
         title: ("Cart"),
         activeColorPrimary: Colors.brown,
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.person),
+        icon: const Icon(Icons.person),
         title: ("Account"),
         activeColorPrimary: Colors.brown,
         inactiveColorPrimary: Colors.grey,
@@ -66,7 +66,7 @@ class BottomNavigationScreens extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async {
         if (_controller.index != 0) {
-          _controller.jumpToTab(0); // Go back to the first tab
+          _controller.jumpToTab(0);
           return false;
         }
         return true;

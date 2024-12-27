@@ -29,9 +29,9 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomCenter,
             colors: [
               Colors.white, // Top color
-              Color(0xFF7B3F00), // Bottom gradient color
+              Color(0xFF7B3F00),
             ],
-            stops: [0.4491, 1.0], // Gradient stops to match your requirement
+            stops: [0.4491, 1.0],
           ),
         ),
         child: Column(
@@ -41,7 +41,6 @@ class _SplashScreenState extends State<SplashScreen> {
               'assets/images/logo1.png',
               width: 200.w,
             ),
-            // SizedBox(height: 2.h),
             Text(
               "AK Golden Crust",
               style: GoogleFonts.lexend(

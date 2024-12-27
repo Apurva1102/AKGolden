@@ -1,5 +1,3 @@
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -7,7 +5,7 @@ void demo2(BuildContext context) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
-      int _itemCount = 0;
+      int itemCount = 0;
       return IntrinsicHeight(
         child: Column(
           children: [
@@ -16,10 +14,10 @@ void demo2(BuildContext context) {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.zero),
+                    borderRadius: const BorderRadius.all(Radius.zero),
                     border: Border.all(color: Colors.green),
                   ),
-                  child: Icon(
+                  child: const Icon(
                     Icons.circle,
                     color: Colors.green,
                   ),
@@ -32,39 +30,38 @@ void demo2(BuildContext context) {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.greenAccent),
-                  child: Center(
+                  child: const Center(
                       child: Text(
-                        "New",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, color: Colors.green),
-                      )),
+                    "New",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.green),
+                  )),
                 )
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   " Almond Chocolate Cupcake",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+                IconButton(onPressed: () {}, icon: const Icon(Icons.share)),
               ],
             ),
-            Row(
+            const Row(
               children: [
                 Icon(Icons.currency_rupee),
                 Text(
                   "  99",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Row(
                 children: [
                   Text(
@@ -74,42 +71,27 @@ void demo2(BuildContext context) {
               ),
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.zero),
                   color: Color(0xffFBEFE3)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    // decoration: BoxDecoration(
-                    //   border: Border.all(color: Colors.brown),
-                    // ),
-                      child: Row(
-                          children: [
-                            IconButton(
-                              icon:  Icon(Icons.remove),
-                              onPressed: () {
-                                // setState(() {
-                                //   _itemCount--;
-                                // });
-                              },
-                            ),
-                            Text(_itemCount.toString()),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () {
-                                // setState(() {
-                                //   _itemCount++;
-                                // });
-                              },
-                            )
-                          ])),
+                  Row(children: [
+                    IconButton(
+                      icon: const Icon(Icons.remove),
+                      onPressed: () {},
+                    ),
+                    Text(itemCount.toString()),
+                    IconButton(
+                      icon: const Icon(Icons.add),
+                      onPressed: () {},
+                    )
+                  ]),
                   SizedBox(
                     height: 4.h,
                     child: ElevatedButton(
-                      onPressed: () {
-                        // Get.toNamed('/dashboard_screen');
-                      },
+                      onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.brown,
                         shape: RoundedRectangleBorder(
@@ -117,9 +99,8 @@ void demo2(BuildContext context) {
                         ),
                       ),
                       child: Row(
-                        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.currency_rupee,
                             color: Colors.white,
                           ),
@@ -134,8 +115,9 @@ void demo2(BuildContext context) {
                             width: 4.w,
                           ),
                           InkWell(
-                            onTap: (){
-                              Navigator.pushNamed(context, '/billdetails');                               },
+                            onTap: () {
+                              Navigator.pushNamed(context, '/billdetails');
+                            },
                             child: Text(
                               "  View Cart",
                               style: TextStyle(
@@ -147,7 +129,7 @@ void demo2(BuildContext context) {
                           SizedBox(
                             width: 3.w,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.shopping_cart_outlined,
                             color: Colors.white,
                           )

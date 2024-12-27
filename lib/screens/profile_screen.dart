@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
-
 import '../controller/allcafename_controller.dart';
-import 'login_screen.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -256,19 +254,19 @@ class ProfileScreen extends StatelessWidget {
                     decoration:  InputDecoration(
                       hintText: '${controller.username}',
                       hintStyle:
-                      TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
+                      const TextStyle(color: Colors.black26),
+                      border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.brown, width: 2),
                         borderRadius: BorderRadius.all(
                             Radius.circular(5)),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.all(
@@ -289,19 +287,19 @@ class ProfileScreen extends StatelessWidget {
                     decoration:  InputDecoration(
                       hintText: '${controller.cellNumber}',
                       hintStyle:
-                      TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
+                      const TextStyle(color: Colors.black26),
+                      border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.brown, width: 2),
                         borderRadius: BorderRadius.all(
                             Radius.circular(5)),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.all(
@@ -322,19 +320,19 @@ class ProfileScreen extends StatelessWidget {
                     decoration:  InputDecoration(
                       hintText: '${controller.email}',
                       hintStyle:
-                      TextStyle(color: Colors.black26),
-                      border: OutlineInputBorder(
+                      const TextStyle(color: Colors.black26),
+                      border: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(
                           Radius.circular(5),
                         ),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.brown, width: 2),
                         borderRadius: BorderRadius.all(
                             Radius.circular(5)),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(
                             color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.all(

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sizer/sizer.dart';
-
 import '../controller/orderchekout_controller.dart';
 import '../model/all_product_model.dart';
 
@@ -11,7 +9,6 @@ class AddprodutCard extends StatelessWidget {
   final AllProductModule productModule;
 
   const AddprodutCard({super.key, required this.productModule});
-
 
   void show(BuildContext context) {
     final OrderCheckoutController orderCheckoutController = Get.find();
@@ -30,7 +27,7 @@ class AddprodutCard extends StatelessWidget {
                     padding: const EdgeInsets.all(20),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: Image.asset('assets/images/cake.png'),
+                      child: Image.network(productModule.fullImagePath),
                     ),
                   ),
                   Padding(
@@ -60,11 +57,11 @@ class AddprodutCard extends StatelessWidget {
                                 color: Colors.greenAccent.shade100),
                             child: Center(
                                 child: Text(
-                                  "New",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.green.shade700),
-                                )),
+                              "New",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.green.shade700),
+                            )),
                           ),
                         )
                       ],
@@ -94,10 +91,11 @@ class AddprodutCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          "₹${productModule.basePrice ?? 0}",  // Ensure basePrice has a default value if it's null
+                          "₹${productModule.basePrice ?? 0}", // Ensure basePrice has a default value if it's null
                           style: GoogleFonts.alatsi(
                             fontWeight: FontWeight.w400,
-                            fontSize: 14.sp,  // Customize the font size based on your requirements
+                            fontSize: 14
+                                .sp, // Customize the font size based on your requirements
                           ),
                         )
                       ],
@@ -172,7 +170,6 @@ class AddprodutCard extends StatelessWidget {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     final OrderCheckoutController orderCheckoutController = Get.find();
@@ -185,7 +182,6 @@ class AddprodutCard extends StatelessWidget {
           child: GestureDetector(
             onTap: () {
               show(context);
-
             },
             child: Card(
               elevation: 6,
@@ -233,20 +229,17 @@ class AddprodutCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "₹${productModule.basePrice}",  // Ensure `makingPrice` is correctly fetched
+                          "₹${productModule.basePrice}",
                           style: GoogleFonts.alatsi(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16.sp
-                          ),
+                              fontWeight: FontWeight.w400, fontSize: 16.sp),
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            // Handle add to cart action
-                            orderCheckoutController.addProductToCart(productModule);
-
+                            orderCheckoutController
+                                .addProductToCart(productModule);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xffE8EBED),
+                            backgroundColor: const Color(0xffE8EBED),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -270,15 +263,25 @@ class AddprodutCard extends StatelessWidget {
         ),
         // Circular Image
         Positioned(
-          child: ClipOval(
-            child: Image.asset(
-              'assets/images/pic2.png',  // This can be dynamic if you have image URLs
+          top: 0,
+          width: 133,
+          height: 133,
+          child: GestureDetector(
+            onTap: () {
+              show(context);
+            },
+            child: ClipOval(
+                child: Image.network(
+              productModule.fullImagePath,
+              height: 27.h,
               width: 27.w,
-              height: 27.w,
               fit: BoxFit.cover,
-            ),
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.broken_image, size: 150);
+              },
+            )),
           ),
-        ),
+        )
       ],
     );
   }

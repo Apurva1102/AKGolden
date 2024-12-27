@@ -14,13 +14,11 @@ class OrderCheckoutScreen extends StatelessWidget {
   OrderCheckoutScreen({super.key});
 
   final OrderCheckoutController controller = Get.put(OrderCheckoutController());
-  final BottomNavigationController bottomNavController = Get.put(BottomNavigationController());
-
-
+  final BottomNavigationController bottomNavController =
+      Get.put(BottomNavigationController());
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
     // double deviceHeight = MediaQuery.of(context).size.height;
 
     // final List<Widget> imageSliders = List.generate(4, (index) {
@@ -50,6 +48,7 @@ class OrderCheckoutScreen extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(6)),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Padding(
                 //   padding: const EdgeInsets.only(left: 10),
@@ -69,108 +68,106 @@ class OrderCheckoutScreen extends StatelessWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(right: 30),
             child: Container(
               height: 36,
               width: 36,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(6)),
               child: IconButton(
-                onPressed: (){
-                  // Get.toNamed('billdetails');
-                  Get.bottomSheet(
-                    Container(
-                      height: 250,
-                      padding: const EdgeInsets.all(16),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20)),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Logout",
-                            style: GoogleFonts.alatsi(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Divider(
-                            thickness: 1,
-                            color: Colors.grey,
-                          ),
-                          SizedBox(height: 1.h,),
-                          Text(
-                            "Are you sure you want to logout?",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 20,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    side: const BorderSide(
-                                        color: Colors.brown),
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero
-                                    )
-                                ),
-                                child: Text(
-                                  "Cancel",
-                                  style: GoogleFonts.inter(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
+                  onPressed: () {
+                    // Get.toNamed('billdetails');
+                    Get.bottomSheet(
+                      Container(
+                        height: 250,
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(20)),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              "Logout",
+                              style: GoogleFonts.alatsi(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.black,
                               ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  final prefs = await SharedPreferences.getInstance();
-                                  await prefs.clear();
-                                  // await clearSharedPreferences();
-                                  // Get.off(() => LoginScreen());
-                                  Get.offAllNamed('/login',);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(
-                                        0xff7B3F00),
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero
-                                    )
-                                ),
-                                child: Text(
-                                  "Yes, Logout",
-                                  style: GoogleFonts.inter(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 18),
-                                ),
+                            ),
+                            const SizedBox(height: 8),
+                            const Divider(
+                              thickness: 1,
+                              color: Colors.grey,
+                            ),
+                            SizedBox(
+                              height: 1.h,
+                            ),
+                            Text(
+                              "Are you sure you want to logout?",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 20,
+                                color: Colors.grey[700],
                               ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            const SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white,
+                                      side:
+                                          const BorderSide(color: Colors.brown),
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.zero)),
+                                  child: Text(
+                                    "Cancel",
+                                    style: GoogleFonts.inter(
+                                        color: Colors.black,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.clear();
+                                    // await clearSharedPreferences();
+                                    // Get.off(() => LoginScreen());
+                                    Get.offAllNamed(
+                                      '/login',
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xff7B3F00),
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.zero)),
+                                  child: Text(
+                                    "Yes, Logout",
+                                    style: GoogleFonts.inter(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    isDismissible: true,
-                  );
-                },
-                  icon: const Icon( Icons.person,color: Colors.brown)
-                  ),
+                      isDismissible: true,
+                    );
+                  },
+                  icon: const Icon(Icons.person, color: Colors.brown)),
             ),
           ),
           // SizedBox(width: 2.w),
@@ -189,145 +186,37 @@ class OrderCheckoutScreen extends StatelessWidget {
         ],
       ),
 
-      // bottomNavigationBar: BottomNavigationBar(
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: GestureDetector(
-      //         onTap: () {
-      //           Get.toNamed('/dashboard_screen');
-      //         },
-      //         child: Column(
-      //           mainAxisSize: MainAxisSize.min,
-      //           children: [
-      //             Padding(
-      //               padding: EdgeInsets.symmetric(
-      //                   vertical: 4.0), // Adjust the vertical padding
-      //               child: Image.asset(
-      //                 'assets/images/home.png',
-      //                 width: 7.w,
-      //               ),
-      //             ),
-      //             const Text(
-      //               "Home",
-      //               style: TextStyle(color: Color(0xff565E6C)),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Column(
-      //         mainAxisSize: MainAxisSize.min,
-      //         children: [
-      //           Padding(
-      //             padding: EdgeInsets.symmetric(
-      //                 vertical: 4.0), // Adjust the vertical padding
-      //             child: Image.asset(
-      //               'assets/images/Frame.png',
-      //               width: 7.w,
-      //             ),
-      //           ),
-      //           const Text(
-      //             "Deals",
-      //             style: TextStyle(color: Color(0xff565E6C)),
-      //           ),
-      //         ],
-      //       ),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: GestureDetector(
-      //         onTap: () {
-      //           Get.toNamed('/orderhistory_screen');
-      //         },
-      //         child: Column(
-      //           mainAxisSize: MainAxisSize.min,
-      //           children: [
-      //             Padding(
-      //               padding: EdgeInsets.symmetric(
-      //                   vertical: 4.0),
-      //               child: Image.asset(
-      //                 'assets/images/Frame3.png',
-      //                 width: 7.w,
-      //               ),
-      //             ),
-      //             const Text(
-      //               "History",
-      //               style: TextStyle(color: Color(0xff565E6C)),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: GestureDetector(
-      //         onTap: () {
-      //           Get.toNamed('/billdetails');
-      //         },
-      //         child: Column(
-      //           mainAxisSize: MainAxisSize.min,
-      //           children: [
-      //             Padding(
-      //               padding: EdgeInsets.symmetric(
-      //                   vertical: 4.0), // Adjust the vertical padding
-      //               child: Image.asset(
-      //                 'assets/images/Frame2.png',
-      //                 width: 7.w,
-      //               ),
-      //             ),
-      //             const Text(
-      //               "Cart",
-      //               style: TextStyle(color: Color(0xff565E6C)),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //       label: '',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Column(
-      //         mainAxisSize: MainAxisSize.min,
-      //         children: [
-      //           Padding(
-      //             padding: EdgeInsets.symmetric(
-      //                 vertical: 4.0), // Adjust the vertical padding
-      //             child: Image.asset(
-      //               'assets/images/Frame4.png',
-      //               width: 7.w,
-      //             ),
-      //           ),
-      //           const Text(
-      //             "Account",
-      //             style: TextStyle(color: Color(0xff565E6C)),
-      //           ),
-      //         ],
-      //       ),
-      //       label: '',
-      //     ),
-      //   ],
-      //   selectedItemColor: Colors.brown,
-      //   unselectedItemColor: Colors.grey,
-      //   type: BottomNavigationBarType.fixed,
-      //   showSelectedLabels: false,
-      //   showUnselectedLabels: false,
-      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton:
-      SizedBox(
+      floatingActionButton: SizedBox(
         width: 55.w,
         height: 6.h,
         child: FloatingActionButton(
-          onPressed: (){
-            // Get.toNamed('/billdetails');
-            // Get.find<PersistentTabController>().jumpToTab(3);
-            PersistentNavBarNavigator.pushNewScreen(context, screen: const BillDetails(),withNavBar: true);
-        },
+          onPressed: () {
+            PersistentNavBarNavigator.pushNewScreen(context,
+                screen: const BillDetails(), withNavBar: true);
+          },
           backgroundColor: const Color(0xff7B3F00),
-          child: Text("Check Out",style: GoogleFonts.alatsi(fontWeight: FontWeight.w500,color: Colors.white),),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "Check Out",
+                style: GoogleFonts.alatsi(
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                    fontSize: 17.sp),
+              ),
+              SizedBox(width: 2.w,),
+              const Icon(
+                Icons.double_arrow_outlined,
+                color: Colors.white,
+                size: 25,
+              )
+            ],
+          ),
         ),
       ),
+
       body: SingleChildScrollView(
         reverse: false,
         child: Column(
@@ -398,39 +287,40 @@ class OrderCheckoutScreen extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 35.h,
-              child: Obx(() {
-                if (controller.isLoading.value) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (controller.errorMessage.isNotEmpty) {
-                  return Center(child: Text(controller.errorMessage.value));
-                } else {
-                  return GridView.builder(
-                    itemCount: controller.dealProducts.length, // Access dealProducts here
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 1,
-                      crossAxisSpacing: 0.04,
-                      mainAxisSpacing: 1.03,
-                      childAspectRatio: 1.7,
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          // Add functionality for tap here
-                        },
-                        child: ProductCard(
-                          productModule: controller.dealProducts[index], // Use dealProducts here
-                        ),
-                      );
-                    },
-                  );
-                }
-              })
+                height: 35.h,
+                child: Obx(() {
+                  if (controller.isLoading.value) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (controller.errorMessage.isNotEmpty) {
+                    return Center(child: Text(controller.errorMessage.value));
+                  } else {
+                    return GridView.builder(
+                      itemCount: controller
+                          .dealProducts.length,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 1,
+                        crossAxisSpacing: 0.04,
+                        mainAxisSpacing: 1.03,
+                        childAspectRatio: 1.7,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
 
-            ),
+                          },
+                          child: ProductCard(
+                            productModule: controller
+                                .dealProducts[index], // Use dealProducts here
+                          ),
+                        );
+                      },
+                    );
+                  }
+                })),
             SizedBox(
               height: 2.h,
             ),
@@ -455,34 +345,34 @@ class OrderCheckoutScreen extends StatelessWidget {
                 } else if (controller.errorMessage.isNotEmpty) {
                   return Center(child: Text(controller.errorMessage.value));
                 } else {
-                  // Use controller.restProducts to show the products from the restProducts list
                   return GridView.builder(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
                       childAspectRatio: 0.8,
                     ),
-                    // Set itemCount to the length of restProducts
                     itemCount: controller.restProducts.length,
                     itemBuilder: (context, index) {
                       return AddprodutCard(
-                        productModule: controller.restProducts[index],  // Access restProducts here
+                        productModule: controller.restProducts[index],
                       );
                     },
                   );
                 }
               }),
             )
-
           ],
         ),
       ),
     );
   }
+
 }
+
 
 Row buildCarouselIndicator(
   int currentCarouselIndex,

@@ -5,15 +5,15 @@ class NavigationDotsAndArrow extends StatelessWidget {
   final RxInt currentIndex;
   final int totalPages;
   final VoidCallback onNextTap;
-  final VoidCallback onPreviousTap; // Add this for previous navigation
+  final VoidCallback onPreviousTap;
 
   const NavigationDotsAndArrow({
-    Key? key,
+    super.key,
     required this.currentIndex,
     required this.totalPages,
     required this.onNextTap,
-    required this.onPreviousTap, // Add this for previous navigation
-  }) : super(key: key);
+    required this.onPreviousTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +22,20 @@ class NavigationDotsAndArrow extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // Previous arrow (optional)
-          if (onPreviousTap != null) // Add this condition
-            GestureDetector(
-              onTap: onPreviousTap,
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xff7B3F00),
-                ),
-                child: const Icon(
-                  Icons.arrow_back, // Use arrow_back for previous
-                  color: Colors.white,
-                ),
+          GestureDetector(
+            onTap: onPreviousTap,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xff7B3F00),
+              ),
+              child: const Icon(
+                Icons.arrow_back,
+                color: Colors.white,
               ),
             ),
+          ),
 
           Obx(
                 () => Row(
@@ -60,7 +58,7 @@ class NavigationDotsAndArrow extends StatelessWidget {
               }),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           GestureDetector(

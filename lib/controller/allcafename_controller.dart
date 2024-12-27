@@ -29,7 +29,7 @@ class CafeController extends GetxController {
     try {
       isLoading.value = true;
       final response = await http.get(
-        Uri.parse('${Constants.baseUrl}/GetAllCafeUsers'),
+        Uri.parse('${Constants.baseUrl}GetAllCafeUsers'),
         headers: {'Authorization': 'Bearer $token'},
       );
 

@@ -1,5 +1,7 @@
 
 // Data class to hold all products
+import '../utils/constants.dart';
+
 class ProductData {
   final List<AllProductModule> allProducts;
 
@@ -11,6 +13,7 @@ class AllProductModule {
   int? productId;
   int? proMastId;
   String? productMasterName;
+  String? imagePath; // Original field
   String? name;
   String? details;
   int? productWeight;
@@ -25,10 +28,12 @@ class AllProductModule {
   bool? isDeal;
   int? dealPrice;
 
+
   AllProductModule({
     this.productId,
     this.proMastId,
     this.productMasterName,
+    this.imagePath,
     this.name,
     this.details,
     this.productWeight,
@@ -41,14 +46,22 @@ class AllProductModule {
     this.dealProducts,
     this.restProducts,
     this.isDeal,
-    this.dealPrice
+    this.dealPrice,
   });
+
+  String get fullImagePath {
+    if (imagePath == null || imagePath!.isEmpty) {
+      return ""; // Return an empty string or a placeholder URL
+    }
+    return Constants.baseUrl + imagePath!.replaceAll("\\", "/");
+  }
 
   AllProductModule.fromJson(Map<String, dynamic> json)
       : isDeal = json['dealProducts'] != null && json['dealProducts'].isNotEmpty {
     productId = json['product_id'];
     proMastId = json['pro_mast_id'];
     productMasterName = json['Product_Master_Name'];
+    imagePath = json['imagePath']; // Added imagePath
     name = json['name'];
     details = json['details'];
     productWeight = json['product_weight'];
@@ -74,33 +87,13 @@ class AllProductModule {
       });
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['product_id'] = productId;
-    data['pro_mast_id'] = proMastId;
-    data['Product_Master_Name'] = productMasterName;
-    data['name'] = name;
-    data['details'] = details;
-    data['product_weight'] = productWeight;
-    data['filling_types_id'] = fillingTypesId;
-    data['filling_name'] = fillingName;
-    data['product_filling'] = productFilling;
-    data['base_price'] = basePrice;
-    data['making_price'] = makingPrice;
-    data['price_scale'] = priceScale;
-    data['dealProducts'] = dealProducts?.map((e) => e.toJson()).toList();
-    data['restProducts'] = restProducts?.map((e) => e.toJson()).toList();
-    data['isDeal'] = isDeal;
-    data['dealPrice'] = dealPrice;
-    return data;
-  }
 }
 
 class DealProducts {
   int? productId;
   int? proMastId;
   String? productMasterName;
+  String? imagePath; // Added imagePath
   String? name;
   String? details;
   int? productWeight;
@@ -111,11 +104,18 @@ class DealProducts {
   int? makingPrice;
   String? priceScale;
   int? dealPrice;
+  String get fullImagePath {
+    if (imagePath == null || imagePath!.isEmpty) {
+      return ""; // Placeholder or empty string
+    }
+    return Constants.baseUrl + imagePath!.replaceAll("\\", "/");
+  }
 
   DealProducts({
     this.productId,
     this.proMastId,
     this.productMasterName,
+    this.imagePath, // Added imagePath
     this.name,
     this.details,
     this.productWeight,
@@ -132,6 +132,7 @@ class DealProducts {
     productId = json['product_id'];
     proMastId = json['pro_mast_id'];
     productMasterName = json['Product_Master_Name'];
+    imagePath = json['imagePath']; // Added imagePath
     name = json['name'];
     details = json['details'];
     productWeight = json['product_weight'];
@@ -149,6 +150,7 @@ class DealProducts {
     data['product_id'] = productId;
     data['pro_mast_id'] = proMastId;
     data['Product_Master_Name'] = productMasterName;
+    data['imagePath'] = imagePath; // Added imagePath
     data['name'] = name;
     data['details'] = details;
     data['product_weight'] = productWeight;
@@ -168,6 +170,7 @@ class DealProducts {
       productId: this.productId,
       proMastId: this.proMastId,
       productMasterName: this.productMasterName,
+      imagePath: this.imagePath, // Added imagePath
       name: this.name,
       details: this.details,
       productWeight: this.productWeight,
@@ -186,6 +189,7 @@ class RestProducts {
   int? productId;
   int? proMastId;
   String? productMasterName;
+  String? imagePath; // Added imagePath
   String? name;
   String? details;
   int? productWeight;
@@ -196,10 +200,17 @@ class RestProducts {
   int? makingPrice;
   String? priceScale;
 
+  String get fullImagePath {
+    if (imagePath == null || imagePath!.isEmpty) {
+      return ""; // Placeholder or empty string
+    }
+    return Constants.baseUrl+imagePath!.replaceAll("\\", "/");
+  }
   RestProducts({
     this.productId,
     this.proMastId,
     this.productMasterName,
+    this.imagePath, // Added imagePath
     this.name,
     this.details,
     this.productWeight,
@@ -215,6 +226,7 @@ class RestProducts {
     productId = json['product_id'];
     proMastId = json['pro_mast_id'];
     productMasterName = json['Product_Master_Name'];
+    imagePath = json['imagePath']; // Added imagePath
     name = json['name'];
     details = json['details'];
     productWeight = json['product_weight'];
@@ -231,6 +243,7 @@ class RestProducts {
     data['product_id'] = productId;
     data['pro_mast_id'] = proMastId;
     data['Product_Master_Name'] = productMasterName;
+    data['imagePath'] = imagePath; // Added imagePath
     data['name'] = name;
     data['details'] = details;
     data['product_weight'] = productWeight;

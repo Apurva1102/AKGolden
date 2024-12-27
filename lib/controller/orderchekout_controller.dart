@@ -15,7 +15,7 @@ import '../utils/constants.dart';
 import 'date_controller.dart';
 
 class OrderCheckoutController extends GetxController {
-  var restProducts = <AllProductModule>[].obs;  // Observable list for rest products
+  var restProducts = <AllProductModule>[].obs;
   var dealProducts = <AllProductModule>[].obs;
   var selectedIndex = 0.obs;
   var currentCarouselIndex = 0.obs;
@@ -24,7 +24,7 @@ class OrderCheckoutController extends GetxController {
   var totalQuantity = 0.0.obs;
   var totalPrice = 0.0.obs;
   var showCancelButton = true.obs;
-// In your OrderCheckoutController
+
   List<AllProductModule> allProducts = [];
   var orderNumber = ''.obs;
   var cafeName = ''.obs;
@@ -33,12 +33,11 @@ class OrderCheckoutController extends GetxController {
   var routesId = 0.obs;
   var paymentTermsId = 0.obs;
 
-  // GST and grand total logic
   double get gstAmount => 0;
   double get grandTotal => totalPrice.value + gstAmount + 0;
   var cartItems = <int, int>{}.obs;
   Map<int, double> productWeights = {};
-  var cartWeights = <int, double>{}.obs;  // Stores weights for per-kg products
+  var cartWeights = <int, double>{}.obs;
   var cartPrices = <int, double>{}.obs;
   var weightUnit = 'kg'.obs;
 
@@ -65,7 +64,7 @@ class OrderCheckoutController extends GetxController {
 
     try {
       final response = await http.get(
-        Uri.parse('${Constants.baseUrl}/findCafeById/$savedCafeId'),
+        Uri.parse('${Constants.baseUrl}findCafeById/$savedCafeId'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -95,12 +94,12 @@ class OrderCheckoutController extends GetxController {
     }
   }
 
-  // Fetch products (can be either 'rest' or 'deal')
   void fetchProducts() async {
     isLoading.value = true;
     await apiService.fetchProducts();
     isLoading.value= false;
   }
+
 
   Future<void> submitOrder() async {
 
@@ -109,11 +108,11 @@ class OrderCheckoutController extends GetxController {
           backgroundColor: Colors.red,
           colorText: Colors.white,
           duration: const Duration(milliseconds: 600));
-      return; // Prevent further execution
+      return;
     }
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('token'); // Retrieve token
+    String? token = prefs.getString('token');
     String? savedCafeId = prefs.getString('cafe_id');
     print('Saved Cafe ID: $savedCafeId');
 
@@ -172,7 +171,7 @@ print(routesId);
       print("Request Body: $requestBody");
 
       final response = await http.post(
-        Uri.parse('${Constants.baseUrl}/CreateCafeOrder'),
+        Uri.parse('${Constants.baseUrl}CreateCafeOrder'),
         headers: {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
@@ -181,6 +180,8 @@ print(routesId);
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.body);
+        print("response.body");
         clearForm();
         final repeatController = Get.find<RepeatOrderController>();
         repeatController.fetchCafeOrders();
@@ -202,7 +203,7 @@ print(routesId);
                 child: Column(
                   children: [
                     Image.asset('assets/images/deliverybox.png'),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     const Text(
                       "Your Order has been Confirmed !!",
                       style: TextStyle(
@@ -226,14 +227,14 @@ print(routesId);
                       textAlign: TextAlign.center,
                       text: TextSpan(
                         text: "Your order number is ",
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 11,
                         ),
                         children: [
                           TextSpan(
                             text: orderNumber,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 11,
                             ),
@@ -241,7 +242,7 @@ print(routesId);
                         ],
                       ),
                     ),
-                    Text(
+                    const Text(
                       "You'll get an email confirmation for your order details",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 11),
@@ -254,7 +255,7 @@ print(routesId);
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        side: BorderSide(color: Colors.brown),
+                        side: const BorderSide(color: Colors.brown),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -279,21 +280,20 @@ print(routesId);
         Get.snackbar("Error", "Failed to create order. Please try again.",
             backgroundColor: Colors.red,
             colorText: Colors.white,
-            duration: Duration(milliseconds: 600));
+            duration: const Duration(milliseconds: 600));
         print('Response body: ${response.body}');
       }
     } catch (e) {
       Get.snackbar("Error", "An error occurred: $e");
-      print('Error: $e'); // Debugging line
+      print('Error: $e');
     }
   }
 
-  // Find product by ID from either restProducts or dealProducts
   AllProductModule _findProductById(int productId) {
     final product = restProducts.firstWhereOrNull((p) => p.productId == productId)
         ?? dealProducts.firstWhereOrNull((p) => p.productId == productId);
 
-    return product ?? AllProductModule(); // Return empty module if not found
+    return product ?? AllProductModule();
   }
 
   void clearForm() {
@@ -306,10 +306,9 @@ print(routesId);
   }
 
   void repeatOrder(Orders order) {
-    cartItems.clear(); // Clear existing cart items
-    totalQuantity.value = 0; // Reset total quantity
+    cartItems.clear();
+    totalQuantity.value = 0;
     totalPrice.value = 0;
-
     if (order.products == null || order.products!.isEmpty) {
       print('No products to repeat');
       return;
@@ -327,15 +326,13 @@ print(routesId);
       final productDetails = _findProductById(productId);
 
       if (productDetails != null) {
-        final price = productDetails.dealPrice ?? productDetails.basePrice ?? 0.0; // Ensure price is double
+        final price = productDetails.dealPrice ?? productDetails.basePrice ?? 0;
         final subTotalAmount = price * quantity;
 
         print("Cart Items: $cartItems");
-
-        // Ensure quantity is treated as an integer
         cartItems[productId] = quantity.toInt();
-        totalQuantity.value += quantity.toInt(); // Convert quantity to int
-        totalPrice.value += subTotalAmount; // This can remain as double
+        totalQuantity.value += quantity.toInt();
+        totalPrice.value += subTotalAmount;
       } else {
         print("Product with ID $productId not found in product list");
       }
@@ -344,18 +341,16 @@ print(routesId);
     print("Total Quantity: ${totalQuantity.value}");
     print("Total Price: ${totalPrice.value}");
 
-    Future.delayed(Duration(milliseconds: 100), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       Get.toNamed('/billdetails');
     });
   }
 
 
   void addProductToCart(AllProductModule product) {
-    final productId = product.productId ?? 0;
 
     if (product.priceScale == 'Per Item') {
       _addPerItemProduct(product);
-      // Show snackbar after adding per-item product
       Get.snackbar(
         '',
         '',
@@ -393,13 +388,10 @@ print(routesId);
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.transparent,
         margin: const EdgeInsets.only(bottom: 50, left: 10, right: 10),
-        // duration: const Duration(milliseconds: 1000),
         isDismissible: true,
-        forwardAnimationCurve: Curves.easeOut,
       );
     } else if (product.priceScale == 'Per kg') {
       _addPerKgProduct(product);
-      // Show snackbar after adding per-kg product
       Get.snackbar(
         '',
         '',
@@ -437,9 +429,7 @@ print(routesId);
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.transparent,
         margin: const EdgeInsets.only(bottom: 50, left: 10, right: 10),
-        // duration: const Duration(milliseconds: 1000),
         isDismissible: true,
-        forwardAnimationCurve: Curves.easeOut,
       );
     }
   }
@@ -455,6 +445,7 @@ print(routesId);
 
     update();
   }
+
   void _addPerKgProduct(AllProductModule product) {
     final productId = product.productId ?? 0;
     cartWeights[productId] = 0.0;  // Initialize weight to 0
@@ -462,45 +453,7 @@ print(routesId);
     cartPrices[productId] = 0.0;   // Initialize price to 0
     update();
   }
-  void _showSnackbar({
-    required String message,
-    String? actionText,
-    VoidCallback? action,
-  }) {
-    Get.showSnackbar(
-      GetBar(
-        messageText: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: Colors.brown,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                message,
-                style: const TextStyle(color: Colors.white),
-              ),
-              if (actionText != null && action != null)
-                TextButton(
-                  onPressed: action,
-                  child: Text(actionText,
-                      style: const TextStyle(color: Colors.white)),
-                ),
-              const Icon(Icons.shopping_cart, color: Colors.white),
-            ],
-          ),
-        ),
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.transparent,
-        margin: const EdgeInsets.only(bottom: 50, left: 10, right: 10),
-        duration: Duration(milliseconds: 1000),
-      ),
-    );
-  }
 
-  // Method to remove a single product from the cart
   void removeProductFromCart(int productId) {
     if (cartItems.containsKey(productId) && cartItems[productId]! > 0) {
       final product = _findProductById(productId);
@@ -532,58 +485,103 @@ print(routesId);
 
     update();
   }
+
   void decreaseProductQuantity(int productId) {
-    if (cartItems.containsKey(productId) && cartItems[productId]! > 0) {
-      final product = _findProductById(productId);
-      // final basePrice = product.basePrice ?? 0;
+    // if (cartItems.containsKey(productId) && cartItems[productId]! > 0) {
+    //   final product = _findProductById(productId);
+    //   // final basePrice = product.basePrice ?? 0;
+    //
+    //   final price = product.dealPrice != null ? product.dealPrice : product.basePrice;
+    //
+    //   totalQuantity.value -= 1;
+    //   totalPrice.value -= price!;
+    //
+    //   cartItems[productId] = cartItems[productId]! - 1;
+    //   if (cartItems[productId] == 0) {
+    //     cartItems.remove(productId);
+    //   }
+    // }
+    final product = _findProductById(productId);
+    if (product.priceScale == 'Per kg') {
+      final currentWeight = cartItems[productId]?.toDouble() ?? 0.0; // Get weight as double
+      if (currentWeight > 0.5) {
+        final newWeight = currentWeight - 0.5; // Decrease by 0.5 kg
+        cartItems[productId] = newWeight.toInt(); // Update cartItems with weight as int
 
-      final price = product.dealPrice != null ? product.dealPrice : product.basePrice;
-
-      totalQuantity.value -= 1;
-      totalPrice.value -= price!;
-
-      cartItems[productId] = cartItems[productId]! - 1;
-      if (cartItems[productId] == 0) {
+        // Update cartPrices
+        final pricePerKg = (product.dealPrice ?? product.basePrice ?? 0.0).toDouble();
+        cartPrices[productId] = pricePerKg * newWeight;
+      } else {
         cartItems.remove(productId);
+        cartPrices.remove(productId); // Remove from cartPrices as well
+      }
+      }
+    else {
+      // Handle per-item products (existing logic)
+      if (cartItems.containsKey(productId) && cartItems[productId]! > 0) {
+        cartItems[productId] = cartItems[productId]! - 1;
+        totalQuantity.value -= 1;
+        totalPrice.value -= (product.dealPrice ?? product.basePrice ?? 0.0);
+        if (cartItems[productId] == 0) {
+          cartItems.remove(productId);
+          cartPrices.remove(productId);
+        }
       }
     }
-  }
+    _recalculateTotalPrice();
+    update();
+    }
 
   void increaseProductQuantity(int productId) {
+    // final product = _findProductById(productId);
+    // // final basePrice = product.basePrice ?? 0;
+    // final price = product.dealPrice != null ? product.dealPrice : product.basePrice; // Use dealPrice or basePrice
+    //
+    //
+    // cartItems[productId] = (cartItems[productId] ?? 0) + 1;
+    // totalQuantity.value += 1;
+    // totalPrice.value += price!;
+
     final product = _findProductById(productId);
-    // final basePrice = product.basePrice ?? 0;
-    final price = product.dealPrice != null ? product.dealPrice : product.basePrice; // Use dealPrice or basePrice
+    if (product.priceScale == 'Per kg') {
+      // Handle weight-based products
+      final currentWeight = cartItems[productId]?.toDouble() ?? 0.0; // Get weight as double
+      final newWeight = currentWeight + 0.5; // Increase by 0.5 kg
+      cartItems[productId] = newWeight.toInt(); // Update cartItems with weight as int
 
-
-    cartItems[productId] = (cartItems[productId] ?? 0) + 1;
-    totalQuantity.value += 1;
-    totalPrice.value += price!;
+      // Update cartPrices
+      final pricePerKg = (product.dealPrice ?? product.basePrice ?? 0.0).toDouble();
+      cartPrices[productId] = pricePerKg * newWeight;
+    } else {
+      // Handle per-item products (existing logic)
+      cartItems[productId] = (cartItems[productId] ?? 0) + 1;
+      totalQuantity.value += 1;
+      totalPrice.value += (product.dealPrice ?? product.basePrice ?? 0.0);
+    }
+    _recalculateTotalPrice();
+    update();
   }
 
   void updateWeight(int productId, String value) {
     try {
-      // Convert input value to double (allowing decimal points)
       final weightInKg = double.tryParse(value) ?? 0.0;
-      // Convert kg to grams
-      final weightInGrams = weightInKg * 1000;
-
       final product = _findProductById(productId);
       if (product.priceScale != 'Per kg') return;
 
-      final pricePerKg = (product.dealPrice ?? product.basePrice ?? 0).toDouble();
-      final calculatedPrice = (pricePerKg * weightInKg).toDouble(); // Use weightInKg directly for price calculation
+      cartItems[productId] = weightInKg.toInt();
 
-      cartWeights[productId] = weightInGrams;
-      cartPrices[productId] = calculatedPrice;
+      // Update cartPrices
+      final pricePerKg = (product.dealPrice ?? product.basePrice ?? 0.0).toDouble();
+      cartPrices[productId] = pricePerKg * weightInKg;
 
-      // Update total price
       _recalculateTotalPrice();
-
       update();
     } catch (e) {
       print('Error updating weight: $e');
     }
-  }  void _recalculateTotalPrice() {
+  }
+
+  void _recalculateTotalPrice() {
     double newTotal = 0.0;
 
     cartItems.forEach((productId, quantity) {
@@ -614,14 +612,17 @@ print(routesId);
         .where((product) => cartItems.containsKey(product.productId))
         .toList();
   }
+
   String getDisplayWeight(int productId) {
     final weightInGrams = cartWeights[productId] ?? 0.0;
     final weightInKg = weightInGrams / 1000;
-    return weightInKg.toStringAsFixed(3); // Show up to 3 decimal places for kg
+    return weightInKg.toStringAsFixed(3);
   }
+
   double getPriceToDisplay(int productId) {
     return cartPrices[productId] ?? 0.0;
   }
+
   void navigateToBillDetails() {
     if (cartItems.isNotEmpty) {
       Get.toNamed('/billdetails', arguments: {
@@ -649,15 +650,15 @@ print(routesId);
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
         colorText: Colors.white,
-        duration: Duration(milliseconds: 900),
+        duration: const Duration(milliseconds: 900),
       );
     } else {
       clearForm();
       clearCart();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Your Order Cancelled"),
-          duration: Duration(milliseconds: 800),
+          content: const Text("Your Order Cancelled"),
+          duration: const Duration(milliseconds: 800),
           behavior: SnackBarBehavior.floating,
           margin: EdgeInsets.only(
             bottom: MediaQuery.of(context).size.height - 180,
@@ -666,7 +667,7 @@ print(routesId);
       );
     }
   }
-  @override
+
   void clearCart() {
     cartItems.clear();
     cartWeights.clear();

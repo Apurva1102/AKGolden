@@ -171,42 +171,6 @@ class HomeScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                // Container(
-                //   height: 5.h,
-                //   width: 100.w,
-                //   color: const Color(0xffD7BB9E),
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(10.0),
-                //     child: Row(
-                //       children: [
-                //         const Icon(
-                //           Icons.location_on_sharp,
-                //           color: Colors.white,
-                //         ),
-                //         SizedBox(
-                //           width: 4.w,
-                //         ),
-                //         Text(
-                //           "AK Golden Crust",
-                //           style: GoogleFonts.poppins(
-                //             color: Colors.white,
-                //             fontWeight: FontWeight.w400,
-                //           ),
-                //         ),
-                //         SizedBox(
-                //           width: 2.w,
-                //         ),
-                //     // Text(
-                //     //   "Wednesday is holiday",
-                //     //   style: GoogleFonts.poppins(
-                //     //     color: Colors.white,
-                //     //     fontWeight: FontWeight.w400,
-                //     //   ),
-                //     // )
-                //       ],
-                //     ),
-                //   ),
-                // ),
                 SizedBox(height: 3.h),
                 Center(
                   child: Obx(() {
@@ -285,7 +249,6 @@ class HomeScreen extends StatelessWidget {
 
                 ),
                 SizedBox(height: 2.h),
-                // Track Payment Section
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(
                     "     Track Delivery",
@@ -297,77 +260,87 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 2.h),
                 ]),
 
-                // Date Range Selection TextFields
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          controller: _controller.startDateController,
-                          readOnly: true,
-                          onTap: () async {
-                            final DateTime? picked = await showDatePicker(
-                              context: context,
-                              initialDate:
-                                  _controller.startDate.value ?? DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2101),
-                            );
-                            if (picked != null) {
-                              _controller.startDate.value = picked;
-                              _controller.startDateController.text =
-                                  DateFormat('yyyy-MM-dd').format(picked);
-                              _controller.filterOrdersByDateRange();
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'Start Date',
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.brown)
-                          ),
-                            focusedBorder: OutlineInputBorder( // Customize focused border
-                              borderSide:  BorderSide(color: Colors.brown),
-                            ),
-
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: TextField(
-                          controller: _controller.endDateController,
-                          readOnly: true,
-                          onTap: () async {
-                            final DateTime? picked = await showDatePicker(
-                              context: context,
-                              initialDate:
-                                  _controller.endDate.value ?? DateTime.now(),
-                              firstDate: DateTime(2000),
-                              lastDate: DateTime(2101),
-                            );
-                            if (picked != null) {
-                              _controller.endDate.value = picked;
-                              _controller.endDateController.text =
-                                  DateFormat('yyyy-MM-dd').format(picked);
-                              _controller.filterOrdersByDateRange();
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'End Date',
-                            // labelText: "End Date",
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(color: Colors.brown)
-                            ),
-                            focusedBorder: OutlineInputBorder( // Customize focused border
-                              borderSide:  BorderSide(color: Colors.brown),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+          //      Date Range Selection TextFields
+          //       Padding(
+          //         padding: const EdgeInsets.all(16.0),
+          //         child: Row(
+          //           children: [
+          //             Expanded(
+          //               child: TextField(
+          //                 controller: _controller.startDateController,
+          //                 readOnly: true,
+          //                 onTap: () async {
+          //                   final DateTime? picked = await showDatePicker(
+          //                     context: context,
+          //                     initialDate:
+          //                         _controller.startDate.value ?? DateTime.now(),
+          //                     firstDate: DateTime(2000),
+          //                     lastDate: DateTime(2101),
+          //                   );
+          //                   if (picked != null) {
+          //                     _controller.startDate.value = picked;
+          //                     _controller.startDateController.text =
+          //                         DateFormat('yyyy-MM-dd').format(picked);
+          //                     _controller.filterOrdersByDateRange();
+          //                   }
+          //                 },
+          //                 decoration: const InputDecoration(
+          //                   hintText: 'Start Date',
+          //                   border: OutlineInputBorder(
+          //                       borderSide: const BorderSide(color: Colors.brown)
+          //                 ),
+          //                   focusedBorder: OutlineInputBorder(
+          //                     borderSide:  BorderSide(color: Colors.brown),
+          //                   ),
+          //
+          //                 ),
+          //               ),
+          //             ),
+          //             const SizedBox(width: 16),
+          //             Expanded(
+          //               child: TextField(
+          //                 controller: _controller.endDateController,
+          //                 readOnly: true,
+          //                 onTap: () async {
+          //                   final DateTime? picked = await showDatePicker(
+          //                     context: context,
+          //                     initialDate:
+          //                         _controller.endDate.value ?? DateTime.now(),
+          //                     firstDate: DateTime(2000),
+          //                     lastDate: DateTime(2101),
+          //                   );
+          //                   if (picked != null) {
+          //                     _controller.endDate.value = picked;
+          //                     _controller.endDateController.text =
+          //                         DateFormat('yyyy-MM-dd').format(picked);
+          //                     _controller.filterOrdersByDateRange();
+          //                   }
+          //                 },
+          //                 decoration: const InputDecoration(
+          //                   hintText: 'End Date',
+          //                   // labelText: "End Date",
+          //                   border: OutlineInputBorder(
+          //                       borderSide: const BorderSide(color: Colors.brown)
+          //                   ),
+          //                   focusedBorder: OutlineInputBorder( // Customize focused border
+          //                     borderSide:  BorderSide(color: Colors.brown),
+          //                   ),
+          //                 ),
+          //               ),
+          //             ),
+          //             IconButton(
+          //               icon: const Icon(Icons.clear),
+          //               onPressed: () {
+          //                 _controller.startDate.value = null;
+          //                 _controller.endDate.value = null;
+          //                 _controller.startDateController.clear();
+          //                 _controller.endDateController.clear();
+          //                 _controller.filterOrdersByDateRange();
+          //               },
+          //             ),
+          //           ],
+          //         ),
+          //       ),
 
                 SizedBox(height: 2.h),
                 Container(
@@ -420,7 +393,6 @@ class HomeScreen extends StatelessWidget {
                   height: 70.h,
                   child: TabBarView(
                     children: [
-                      // Completed Orders Tab
                       Obx(() {
                         if (_controller.isLoading.value) {
                           return const Center(
@@ -433,9 +405,7 @@ class HomeScreen extends StatelessWidget {
                         if (_controller.orders.isEmpty) {
                           return const Center(child: Text("No orders found"));
                         }
-
-                        // Filter completed orders
-                        final completedOrders = _controller.orders
+                        _controller.orders
                             .where((order) => order.deliveryStatus == 1)
                             .toList();
 
@@ -547,7 +517,6 @@ class HomeScreen extends StatelessWidget {
                         );
                       }),
 
-                      // Pending Orders Tab
                       Obx(() {
                         if (_controller.isLoading.value) {
                           return const Center(
@@ -561,18 +530,15 @@ class HomeScreen extends StatelessWidget {
                           return const Center(child: Text("No orders found"));
                         }
 
-                        // Filter pending orders
-                        final pendingOrders = _controller.orders
+                        _controller.orders
                             .where((order) => order.deliveryStatus == 0)
                             .toList();
 
                         return ListView.builder(
-                          //  itemCount: pendingOrders.length,
                           itemCount: _controller.filteredOrders
                               .where((order) => order.deliveryStatus == 0)
                               .length,
                           itemBuilder: (context, index) {
-                            // final order = pendingOrders[index];
                             final order = _controller.filteredOrders
                                 .where((order) => order.deliveryStatus == 0)
                                 .toList()[index];
@@ -724,63 +690,124 @@ void _showOrderDetailsPopup(BuildContext context, Orders order) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        ...order.products!.asMap().entries.map(
-                              (entry) {
-                            int index = entry.key;
-                            var product = entry.value;
+                        // Per Item products
+                        ...order.products!
+                            .where((product) => product.priceScale == 'Per Item')
+                            .toList()
+                            .asMap()
+                            .entries
+                            .map((entry) {
+                          int index = entry.key;
+                          var product = entry.value;
 
-                            return GestureDetector(
-                              onTap: () {
-                                selectedIndex.value =
-                                (selectedIndex.value == index)
-                                    ? null
-                                    : index;
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: selected == index
-                                      ? const Color(0xffF5E1C0)
-                                      : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(6),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 6.0, horizontal: 8.0),
-                                margin:
-                                const EdgeInsets.symmetric(vertical: 2.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "${product.name} [${product.quantity ?? 0} Piece]",
-                                          style: GoogleFonts.inter(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 13,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    // Price
-                                    Text(
-                                      "₹ ${product.subTotalAmount}",
-                                      style: GoogleFonts.inter(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 13,
-                                        color: const Color(0xff7B3F00),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                          return GestureDetector(
+                            onTap: () {
+                              selectedIndex.value =
+                              (selectedIndex.value == index) ? null : index;
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selected == index
+                                    ? const Color(0xffF5E1C0)
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                            );
-                          },
-                        ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6.0, horizontal: 8.0),
+                              margin: const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${product.name} [${product.quantity ?? 0} Piece]",
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 13,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Price
+                                  Text(
+                                    "₹ ${product.subTotalAmount}",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                      color: const Color(0xff7B3F00),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+
+                        // Per kg products
+                        ...order.products!
+                            .where((product) => product.priceScale == 'Per kg')
+                            .toList()
+                            .asMap()
+                            .entries
+                            .map((entry) {
+                          int index = entry.key;
+                          var product = entry.value;
+
+                          return GestureDetector(
+                            onTap: () {
+                              selectedIndex.value =
+                              (selectedIndex.value == index) ? null : index;
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: selected == index
+                                    ? const Color(0xffF5E1C0)
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6.0, horizontal: 8.0),
+                              margin: const EdgeInsets.symmetric(vertical: 2.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${product.name} [${product.quantity ?? 0} KG]",
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 13,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  // Price
+                                  Text(
+                                    "₹ ${product.subTotalAmount}",
+                                    style: GoogleFonts.inter(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                      color: const Color(0xff7B3F00),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 4.0),
                           child: Divider(

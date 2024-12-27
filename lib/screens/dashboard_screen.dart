@@ -2,18 +2,17 @@ import 'package:ak_golden_project/common/repeat_order_form.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 import '../common/order_form.dart';
 
 class DashboardScreen extends StatelessWidget {
-  DashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2, // Number of tabs
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 72,
@@ -30,14 +29,6 @@ class DashboardScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Padding(
-                  //   padding: const EdgeInsets.only(left: 10),
-                  //   child: Image.asset(
-                  //     'assets/images/pic1.png',
-                  //     height: 24,
-                  //     width: 24,
-                  //   ),
-                  // ),
                   Text(
                     "  Wednesday is holiday",
                     style: GoogleFonts.inter(fontWeight: FontWeight.w500),
@@ -58,8 +49,6 @@ class DashboardScreen extends StatelessWidget {
                 ),
                 child: IconButton(
                   onPressed: () {
-                    // Get.toNamed('/profile_screen');
-                    // Get.find<PersistentTabController>().jumpToTab(4);
                     Get.bottomSheet(
                       Container(
                         height: 250,
@@ -152,7 +141,7 @@ class DashboardScreen extends StatelessWidget {
                       isDismissible: true,
                     );
                     },
-                  icon: Icon(Icons.person, color: Colors.brown),
+                  icon: const Icon(Icons.person, color: Colors.brown),
                 ),
               ),
             ),
@@ -199,7 +188,7 @@ class DashboardScreen extends StatelessWidget {
                   indicator: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(4),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black26,
                         spreadRadius: 1,
@@ -231,8 +220,7 @@ class DashboardScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 2.h,),
-              // Display the TabBar content
-              Container(
+              SizedBox(
                 height: 70.h,
                 child: TabBarView(
                   children: [

@@ -9,6 +9,7 @@ import '../utils/constants.dart';
 
 
 class ApiService {
+
   Future<http.Response> post(String endpoint, Map<String, dynamic> body) async {
     final url = Uri.parse('${Constants.baseUrl}$endpoint');
     try {
@@ -42,7 +43,7 @@ class ApiService {
 
       print('Cafe ID: $cafeId');
 
-      final url = '${Constants.baseUrl}/GetAllDealsProducts/$cafeId';
+      final url = '${Constants.baseUrl}GetAllDealsProducts/$cafeId';
       print('API URL: $url');
 
       final response = await http.get(
@@ -53,7 +54,6 @@ class ApiService {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
 print(response.body);
-        // Parse dealProducts and restProducts
         List<AllProductModule> dealProducts = (data['dealProducts'] ?? [])
             .map<AllProductModule>((json) => AllProductModule.fromJson(json))
             .toList();
@@ -62,31 +62,14 @@ print(response.body);
             .map<AllProductModule>((json) => AllProductModule.fromJson(json))
             .toList();
 
-        // Combine into allProducts (optional: handle sorting or categorization here)
         List<AllProductModule> allProducts = [...dealProducts, ...restProducts];
 
-        // Set the products for order checkout
         final OrderCheckoutController orderCheckoutController = Get.find();
         orderCheckoutController.dealProducts.value = dealProducts;
         orderCheckoutController.restProducts.value = restProducts;
         orderCheckoutController.isLoading.value = false;
 
-        // Debugging: Print out the results
-        // print('All Products: $allProducts');
-        // for (var product in allProducts) {
-        //   print(product.toJson()); // Print individual product details
-        // }
         print("Dealllll${dealProducts.toList()}");
-
-        // Debugging: Print separate dealProducts and restProducts
-        // print('Deal Products: $dealProducts');
-        // for (var product in dealProducts) {
-        //   print(product.toJson());
-        // }
-        // print('Rest Products: $restProducts');
-        // for (var product in restProducts) {
-        //   print(product.toJson());
-        // }
 
         return ProductData(allProducts: allProducts);
       } else {
@@ -101,4 +84,5 @@ print(response.body);
     }
     return null;
   }
+
 }

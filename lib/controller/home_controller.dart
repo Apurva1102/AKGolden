@@ -29,22 +29,17 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-
     fetchCafeOrders();
-
     firstDayOfMonth = DateTime(now.year, now.month, 1);
     totalDaysInMonth = DateTime(now.year, now.month + 1, 0).day;
     firstDayOfDisplayRange = now.subtract(const Duration(days: 10));
     lastDayOfDisplayRange = now.add(const Duration(days: 8));
-
-    // Initialize the controllers here
     startDateController = TextEditingController();
     endDateController = TextEditingController();
   }
 
   @override
   void onClose() {
-    // Dispose controllers properly in onClose
     startDateController.dispose();
     endDateController.dispose();
     super.onClose();
@@ -85,11 +80,9 @@ class HomeController extends GetxController {
     selectedIndex.value = index;
     selectedDate.value = firstDayOfDisplayRange.add(Duration(days: index));
     filterOrdersByDate();
-    print("test2");
   }
 
   Future<void> fetchCafeOrders() async {
-    print("shubham");
     try {
       isLoading(true);
 
@@ -103,7 +96,7 @@ class HomeController extends GetxController {
       }
 
       final response = await http.get(
-        Uri.parse('${Constants.baseUrl}/GetAllCafeOrders'),
+        Uri.parse('${Constants.baseUrl}GetAllCafeOrders'),
         headers: {
           'Authorization': 'Bearer $token',
         },
@@ -111,10 +104,8 @@ class HomeController extends GetxController {
 
       if (response.statusCode == 200) {
         final jsonResponse = json.decode(response.body);
-        print(jsonResponse);
-        print("test1");
         final cafeOrders = CafeOrdersModel.fromJson(jsonResponse);
-        print(response.body);
+
         if (cafeOrders.orders?.isNotEmpty ?? false) {
           final cafeId = int.tryParse(cafeIdString);
           orders.value = cafeOrders.orders!
@@ -122,8 +113,10 @@ class HomeController extends GetxController {
               .toList();
 
           orders.sort((a, b) {
-            final dateA = parseDate(a.orderDate) ?? DateTime.fromMillisecondsSinceEpoch(0);
-            final dateB = parseDate(b.orderDate) ?? DateTime.fromMillisecondsSinceEpoch(0);
+            final dateA = parseDate(a.orderDate) ??
+                DateTime.fromMillisecondsSinceEpoch(0);
+            final dateB = parseDate(b.orderDate) ??
+                DateTime.fromMillisecondsSinceEpoch(0);
             return dateB.compareTo(dateA);
           });
 
@@ -132,7 +125,8 @@ class HomeController extends GetxController {
           errorMessage.value = "No orders found.";
         }
       } else {
-        errorMessage.value = "Failed to fetch data (Status: ${response.statusCode}).";
+        errorMessage.value =
+        "Failed to fetch data (Status: ${response.statusCode}).";
       }
     } catch (e) {
       errorMessage.value = "An error occurred: $e";
@@ -147,7 +141,8 @@ class HomeController extends GetxController {
       return;
     }
 
-    final selectedDate = firstDayOfDisplayRange.add(Duration(days: selectedIndex.value));
+    final selectedDate =
+    firstDayOfDisplayRange.add(Duration(days: selectedIndex.value));
 
     filteredOrders.value = orders.where((order) {
       final orderDate = parseDate(order.orderDate);
@@ -158,20 +153,19 @@ class HomeController extends GetxController {
     }).toList();
 
     filteredOrders.sort((a, b) {
-      final dateA = parseDate(a.orderDate) ?? DateTime.fromMillisecondsSinceEpoch(0);
-      final dateB = parseDate(b.orderDate) ?? DateTime.fromMillisecondsSinceEpoch(0);
+      final dateA = parseDate(a.orderDate) ??
+          DateTime.fromMillisecondsSinceEpoch(0);
+      final dateB = parseDate(b.orderDate) ??
+          DateTime.fromMillisecondsSinceEpoch(0);
       return dateB.compareTo(dateA);
     });
-    print("Filtered Orders for Selected Date ($selectedDate): ${filteredOrders.map((o) => o.toJson()).toList()}");
   }
 
   void clearDates() {
-    if (startDateController.text != null && endDateController.text != null) {
-      startDateController.text = '';
-      endDateController.text = '';
-      startDate.value = null;
-      endDate.value = null;
-    }
+    startDateController.clear();
+    endDateController.clear();
+    startDate.value = null;
+    endDate.value = null;
     filteredOrders.value = orders;
   }
 

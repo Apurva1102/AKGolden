@@ -16,7 +16,6 @@ class NewOrderForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Delay setting the initial date after the current frame is built
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (dateController.selectedDate.isEmpty) {
         dateController.setDate(DateFormat('yyyy-MM-dd').format(DateTime.now()));
@@ -31,11 +30,10 @@ class NewOrderForm extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // Order Number
               SizedBox(height: 2.h),
               Obx(() {
                 if (cafeController.isLoading.value) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
 
                 if (cafeController.cafeNames.isNotEmpty) {
@@ -80,15 +78,12 @@ class NewOrderForm extends StatelessWidget {
                 }
               }),
               SizedBox(height: 2.h),
-
-              // Date Picker
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.h),
                 child: Obx(() {
                   return TextFormField(
                     readOnly: true,
                     onTap: () async {
-                      // Show date picker
                       DateTime? pickedDate = await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
@@ -113,11 +108,11 @@ class NewOrderForm extends StatelessWidget {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.brown, width: 2),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
-                      enabledBorder: OutlineInputBorder(
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.grey, width: 1),
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
@@ -131,8 +126,6 @@ class NewOrderForm extends StatelessWidget {
                 }),
               ),
               SizedBox(height: 1.h),
-
-              // Note input field
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 1.h),
                 child: TextFormField(
@@ -151,10 +144,10 @@ class NewOrderForm extends StatelessWidget {
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
-                      borderSide: BorderSide(color: Colors.grey),
+                      borderSide: const BorderSide(color: Colors.grey),
                     ),
                   ),
-                  style: TextStyle(fontSize: 17),
+                  style: const TextStyle(fontSize: 17),
                 ),
               ),
 
@@ -165,7 +158,6 @@ class NewOrderForm extends StatelessWidget {
                   height: 52,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Validate cafe selection
                       if (cafeController.cafeNames.isEmpty) {
                         Get.snackbar(
                           'Validation Error',
@@ -176,8 +168,6 @@ class NewOrderForm extends StatelessWidget {
                         );
                         return;
                       }
-
-                      // Validate date selection
                       if (dateController.selectedDate.isEmpty) {
                         Get.snackbar(
                           'Validation Error',
@@ -188,8 +178,6 @@ class NewOrderForm extends StatelessWidget {
                         );
                         return;
                       }
-
-                      // Navigate to the order checkout screen
                       PersistentNavBarNavigator.pushNewScreen(
                         context,
                         screen: OrderCheckoutScreen(),
@@ -197,7 +185,7 @@ class NewOrderForm extends StatelessWidget {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xff7B3F00),
+                        backgroundColor: const Color(0xff7B3F00),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),

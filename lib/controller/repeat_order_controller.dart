@@ -45,7 +45,7 @@ class RepeatOrderController extends GetxController {
       print('Cafe Id from fetchCafeOrders: $savedCafeIdString');
 
       final response = await http.get(
-        Uri.parse('${Constants.baseUrl}/GetAllCafeOrders'),
+        Uri.parse('${Constants.baseUrl}GetAllCafeOrders'),
         headers: {
           'Authorization': 'Bearer $token',
         },

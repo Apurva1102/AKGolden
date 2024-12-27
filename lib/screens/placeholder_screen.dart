@@ -31,17 +31,6 @@ class PlaceholderScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Positioned(
-                  //   top: 50.0,
-                  //   right: 16.0,
-                  //   child: TextButton(
-                  //     onPressed: () {
-                  //       Navigator.push(context, MaterialPageRoute(builder: (context) => OnboardingScreen(),));
-                  //
-                  //     },
-                  //     child:  Text('Skip',style: GoogleFonts.inter(fontWeight: FontWeight.w600,color: Colors.brown,fontSize: 18),),
-                  //   ),
-                  // ),
                 ],
               )
             ),
@@ -74,78 +63,6 @@ class PlaceholderScreen extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          // SizedBox(height: 4.h),
-          // Padding(
-          //   padding: EdgeInsets.only(top: 2,left: 20,),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.start,
-          //     children: [
-                // GestureDetector(
-                //   onTap: () {
-                //     Get.toNamed('/launch_screen');
-                //     // Navigator.push(context, MaterialPageRoute(builder: (context) => LaunchScreen(),));
-                //   },
-                //   child: Container(
-                //     padding:  EdgeInsets.all(8),
-                //     decoration: BoxDecoration(
-                //       shape: BoxShape.circle,
-                //       color: Colors.white,
-                //       border: Border.all(
-                //         color: Colors.brown,
-                //         width: 2
-                //       )
-                //     ),
-                //     child: const Icon(
-                //       Icons.arrow_back,
-                //       color: Colors.brown
-                //     ),
-                //   ),
-                // ),
-          //       SizedBox(width: 10.w),
-          //       Obx(
-          //         () => Row(
-          //           children: List.generate(3, (index) {
-          //             return Container(
-          //               margin: const EdgeInsets.symmetric(horizontal: 4),
-          //               width: 10,
-          //               height: 10,
-          //               decoration: BoxDecoration(
-          //                 shape: BoxShape.circle,
-          //                 color: controller.currentIndex.value == index
-          //                     ? const Color(0xff7B3F00)
-          //                     : Colors.white,
-          //                 border: Border.all(
-          //                   width: 1,
-          //                   color: Color(0xff7B3F00)
-          //                 )
-          //               ),
-          //             );
-          //           }),
-          //         ),
-          //       ),
-          //       SizedBox(width: 10.w),
-          //       GestureDetector(
-          //         // onTap: controller.navigateNext,
-          //         onTap: () {
-          //           // Navigator.push(context, MaterialPageRoute(builder: (context) => BakeryTrackScreen(),));
-          //           Get.toNamed('/bakery_track_screen');
-          //
-          //         },
-          //         child: Container(
-          //           padding: const EdgeInsets.all(12),
-          //           decoration: const BoxDecoration(
-          //             shape: BoxShape.circle,
-          //             color: Color(0xff7B3F00),
-          //           ),
-          //           child: const Icon(
-          //             Icons.arrow_forward,
-          //             color: Colors.white,
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

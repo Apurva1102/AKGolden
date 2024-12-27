@@ -63,7 +63,7 @@ class AuthController extends GetxController {
       final body = {'username': username, 'password': password};
 
       // Make API call
-      final response = await apiService.post('/loginCafeUser', body);
+      final response = await apiService.post('loginCafeUser', body);
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);

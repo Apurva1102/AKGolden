@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../controller/counter_controller.dart';
 
-// Define the CardData class
 class CardData {
   final String name;
   final IconData icon;
@@ -28,8 +26,8 @@ void card_sheet() {
     SingleChildScrollView(
       child: Center(
         child: Container(
-          width: 90.w, // Make container responsive
-          padding: EdgeInsets.all(2.h), // Adjust padding with Sizer
+          width: 90.w,
+          padding: EdgeInsets.all(2.h),
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
             color: Colors.white,
@@ -41,7 +39,7 @@ void card_sheet() {
                 child: Text(
                   "List of Products !!",
                   style: TextStyle(
-                    fontSize: 18.sp, // Responsive font size
+                    fontSize: 18.sp,
                     fontWeight: FontWeight.bold,
                     color: Colors.brown,
                   ),
@@ -50,7 +48,7 @@ void card_sheet() {
               Column(
                 children: cardDataList.map((data) => card(data)).toList(),
               ),
-              SizedBox(height: 2.h), // Responsive spacing before button
+              SizedBox(height: 2.h),
               button(),
             ],
           ),
@@ -62,8 +60,8 @@ void card_sheet() {
 
 Widget button() {
   return SizedBox(
-    width: 50.w, // Make the button width responsive
-    height: 6.h, // Responsive button height
+    width: 50.w,
+    height: 6.h,
     child: ElevatedButton(
       onPressed: () {
         Get.back();
@@ -78,7 +76,7 @@ Widget button() {
         'Save',
         style: TextStyle(
           color: Colors.white,
-          fontSize: 16.sp, // Responsive font size
+          fontSize: 16.sp,
         ),
       ),
     ),
@@ -89,8 +87,8 @@ Widget card(CardData data) {
   final CounterController controller = Get.put(CounterController());
 
   return Container(
-    margin: EdgeInsets.symmetric(vertical: 1.h), // Responsive margin
-    padding: EdgeInsets.all(2.h), // Responsive padding
+    margin: EdgeInsets.symmetric(vertical: 1.h),
+    padding: EdgeInsets.all(2.h),
     decoration: BoxDecoration(
       border: Border.all(color: Colors.grey),
       borderRadius: BorderRadius.circular(10.0),
@@ -102,56 +100,56 @@ Widget card(CardData data) {
           children: [
             Text(
               data.name,
-              style: TextStyle(fontSize: 14.sp), // Responsive text size
+              style: TextStyle(fontSize: 14.sp),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  width: 8.w, // Responsive width for buttons
+                  width: 8.w,
                   height: 8.w,
                   child: FloatingActionButton(
                     onPressed: controller.decrement,
                     tooltip: 'Decrement',
-                    child: const Icon(Icons.remove, size: 18),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    backgroundColor: Colors.brown.shade200, // Consistent button color
+                    backgroundColor: Colors.brown.shade200,
                     elevation: 0,
+                    child: const Icon(Icons.remove, size: 18),
                   ),
                 ),
-                SizedBox(width: 3.w), // Responsive spacing
+                SizedBox(width: 3.w),
                 Obx(
                       () => Text(
                     '${controller.count}',
                     style: TextStyle(fontSize: 16.sp),
                   ),
                 ),
-                SizedBox(width: 3.w), // Responsive spacing
+                SizedBox(width: 3.w),
                 SizedBox(
                   width: 8.w,
                   height: 8.w,
                   child: FloatingActionButton(
                     onPressed: controller.increment,
                     tooltip: 'Increment',
-                    child: const Icon(Icons.add, size: 18),
                     materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     backgroundColor: Colors.brown.shade200,
                     elevation: 0,
+                    child: const Icon(Icons.add, size: 18),
                   ),
                 ),
               ],
             ),
           ],
         ),
-        SizedBox(height: 1.h), // Responsive spacing
+        SizedBox(height: 1.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Icon(data.icon, size: 16.sp), // Responsive icon size
+            Icon(data.icon, size: 16.sp),
             SizedBox(width: 1.w),
             Text(
               data.amount,
-              style: TextStyle(fontSize: 14.sp), // Responsive text size
+              style: TextStyle(fontSize: 14.sp),
             ),
           ],
         )

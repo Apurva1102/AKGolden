@@ -1,23 +1,21 @@
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SimpleCalender extends StatelessWidget {
+  const SimpleCalender({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return const SafeArea(
       child: Scaffold(
-       body: CalendarAppBar(),
+        body: CalendarAppBar(),
       ),
     );
   }
 }
 
-
 class CalendarAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CalendarAppBar({Key? key}) : super(key: key);
+  const CalendarAppBar({super.key});
 
   @override
   Size get preferredSize => const Size.fromHeight(148.0);
@@ -50,16 +48,16 @@ class _CalendarAppBarState extends State<CalendarAppBar> {
             child: Row(
               children: List.generate(
                 lastDayOfMonth.day,
-                    (index) {
+                (index) {
                   final currentDate =
-                  lastDayOfMonth.add(Duration(days: index + 1));
+                      lastDayOfMonth.add(Duration(days: index + 1));
                   final dayName = DateFormat('E').format(currentDate);
                   return Padding(
                     padding: EdgeInsets.only(
                         left: index == 0 ? 16.0 : 0.0, right: 16.0),
                     child: GestureDetector(
                       onTap: () => setState(
-                            () {
+                        () {
                           selectedIndex = index;
                         },
                       ),
